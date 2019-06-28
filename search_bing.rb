@@ -4,8 +4,12 @@ URL = 'https://www.bing.com/search'
 p "please input the keyword for search: "
 input = gets.chomp
 
-respone = RestClient.get URL, {params: {q: input}}
+response = RestClient.get URL, {params: {q: input}}
 
-p respone.body
+p response.code
+p response.cookies
+p response.headers
 
-# result = respone.body.scan(/<h2><a.*?[a-zA-Z]+<\/a.*?>)
+
+result = response.body.scan(/<h2><a.*?href="(?<link>.*?)".*?h=.*?>(?<text>.*?)<\/a.*?>/)
+p result
